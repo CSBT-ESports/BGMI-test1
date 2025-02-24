@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSBT E-Sports Tournament</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* मुख्य स्टाइल्स */
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* नेविगेशन */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            transition: 0.3s;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            color: #ffd700;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #ffd700;
+        }
+
+        /* हीरो सेक्शन */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                rgba(0, 0, 0, 0.7),
+                rgba(0, 0, 0, 0.5),
+                rgba(0, 0, 0, 0.7)
+            );
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            padding: 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 4em;
+            margin-bottom: 20px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content p {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+        }
+
+        /* रजिस्ट्रेशन बटन */
+        .register-btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(45deg, #ffd700, #ff9900);
+            color: #000;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .register-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        /* टूर्नामेंट हाइलाइट्स */
+        .tournament-info {
+            padding: 80px 20px;
+            background: linear-gradient(to bottom, #000, #111);
+        }
+
+        .info-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .info-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .info-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 215, 0, 0.1);
+        }
+
+        .info-card i {
+            font-size: 40px;
+            color: #ffd700;
+            margin-bottom: 20px;
+        }
+
+        .info-card h3 {
+            color: #ffd700;
+            margin-bottom: 15px;
+        }
+
+        /* प्राइज पूल सेक्शन */
+        .prize-pool {
+            padding: 80px 20px;
+            background: #111;
+            text-align: center;
+        }
+
+        .prize-amount {
+            font-size: 3em;
+            color: #ffd700;
+            margin: 20px 0;
+        }
+
+        /* टाइमलाइन सेक्शन */
+        .timeline {
+            padding: 80px 20px;
+            background: #000;
+        }
+
+        .timeline-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline-item {
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 3px solid #ffd700;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 50%;
+            width: 15px;
+            height: 15px;
+            background: #ffd700;
+            border-radius: 50%;
+        }
+
+        /* फुटर */
+        footer {
+            padding: 40px 20px;
+            background: #111;
+            text-align: center;
+        }
+
+        .social-links {
+            margin: 20px 0;
+        }
+
+        .social-links a {
+            color: #fff;
+            margin: 0 10px;
+            font-size: 24px;
+            transition: 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #ffd700;
+        }
+
+        /* मोबाइल रेस्पॉन्सिवनेस */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5em;
+            }
+
+            .hero-content p {
+                font-size: 1.2em;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+        }
+
+        @keyframes glow {
+            0%, 100% { opacity: 0.5; width: 50px; }
+            50% { opacity: 1; width: 100px; }
+        }
+
+        .register-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 
+                0 8px 25px rgba(255, 215, 0, 0.4),
+                0 0 30px rgba(255, 215, 0, 0.2);
+            background: linear-gradient(45deg, #ff9900, #ffd700);
+        }
+
+        .register-btn:active {
+            transform: translateY(1px);
+        }
+
+        /* मोबाइल मेनू बटन */
+        .mobile-menu-btn {
+            display: none;
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* मोबाइल रेस्पॉन्सिवनेस */
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(0, 0, 0, 0.95);
+                padding: 20px 0;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links a {
+                padding: 15px 0;
+                width: 100%;
+                text-align: center;
+            }
+
+            /* फुटर मोबाइल स्टाइल्स */
+            footer > div:first-child {
+                grid-template-columns: 1fr !important;
+                gap: 40px !important;
+                padding: 0 20px !important;
+            }
+
+            footer h3 {
+                text-align: center;
+            }
+
+            footer p {
+                text-align: center;
+            }
+
+            footer .social-links {
+                justify-content: center;
+            }
+
+            /* न्यूजलेटर फॉर्म */
+            footer .newsletter-form {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            footer .newsletter-form button {
+                width: 100%;
+            }
+
+            /* बॉटम फुटर */
+            footer .bottom-footer {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            footer .bottom-footer div {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            footer .bottom-footer a {
+                margin: 5px 0;
+            }
+        }
+
+        /* मोबाइल रेस्पॉन्सिवनेस अपडेट */
+        @media (max-width: 768px) {
+            /* नेविगेशन फिक्स */
+            .navbar {
+                padding: 15px 0;
+            }
+
+            .nav-content {
+                padding: 0 15px;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+            /* हीरो सेक्शन फिक्स */
+            .hero {
+                padding-top: 70px; /* नेविगेशन बार की हाइट के लिए स्पेस */
+            }
+
+            .hero-content {
+                padding: 20px 15px;
+            }
+
+            /* मेन टाइटल फिक्स */
+            .hero-content h1 {
+                font-size: 2.5em !important;
+                margin-bottom: 15px !important;
+            }
+
+            /* सबटाइटल फिक्स */
+            .hero-content p {
+                font-size: 1.2em !important;
+                margin-bottom: 20px !important;
+            }
+
+            /* लाइटनिंग आइकन फिक्स */
+            .hero-content span {
+                font-size: 35px !important;
+                margin-bottom: 15px !important;
+            }
+
+            /* BGMI इमेज फिक्स */
+            .hero-content img {
+                max-width: 250px !important;
+            }
+
+            /* Announced टेक्स्ट फिक्स */
+            .hero-content .announced-text {
+                font-size: 1.8em !important;
+                letter-spacing: 3px !important;
+            }
+
+            /* टूर्नामेंट डिटेल्स सेक्शन फिक्स */
+            .tournament-details {
+                padding: 40px 15px !important;
+            }
+
+            .details-grid {
+                grid-template-columns: 1fr !important;
+            }
+
+            .detail-box {
+                padding: 20px !important;
+            }
+
+            /* WHY JOIN सेक्शन फिक्स */
+            .why-join {
+                padding: 40px 15px !important;
+            }
+
+            .why-join h2 {
+                font-size: 2em !important;
+            }
+
+            .why-join .info-container > div {
+                grid-template-columns: 1fr !important;
+            }
+
+            /* फुटर फिक्स */
+            footer {
+                padding: 40px 15px !important;
+            }
+
+            footer > div:first-child {
+                grid-template-columns: 1fr !important;
+                gap: 30px !important;
+            }
+
+            /* सामान्य टेक्स्ट साइज फिक्स */
+            h2 {
+                font-size: 2em !important;
+            }
+
+            h3 {
+                font-size: 1.5em !important;
+            }
+
+            p {
+                font-size: 1em !important;
+            }
+        }
+
+        /* छोटे मोबाइल के लिए अतिरिक्त फिक्स */
+        @media (max-width: 480px) {
+            .hero-content h1 {
+                font-size: 2em !important;
+            }
+
+            .hero-content p {
+                font-size: 1em !important;
+            }
+
+            .hero-content img {
+                max-width: 200px !important;
+            }
+        }
+
+        /* मुख्य स्टाइल्स */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <!-- नेविगेशन बार -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo">CSBT E-Sports</div>
+            <div class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="leaderboard.html">Leaderboard</a>
+                <a href="about.html">About</a>
+                <a href="blog.html">Blog</a>
+                <a href="#footer" onclick="scrollToFooter(event)">Contact Us</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- हीरो सेक्शन -->
+    <section id="home" class="hero">
+        <video class="hero-video" autoplay loop muted playsinline>
+            <source src="bg.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+        <div class="hero-content" style="text-align: center; position: relative;">
+            <!-- Glowing Effect Container -->
+            <div style="position: relative; display: inline-block;">
+                <!-- Lightning Icon -->
+                <span style="font-size: 50px; color: #ffd700; text-shadow: 0 0 20px #ffd700; margin-bottom: 20px; display: block;">⚡</span>
+                
+                <!-- Main Title -->
+                <h1 style="
+                    font-size: 4.5em;
+                    margin-bottom: 20px;
+                    color: #fff;
+                    text-transform: uppercase;
+                    letter-spacing: 2px;
+                    font-weight: 800;
+                    text-shadow: 
+                        0 0 10px rgba(255, 215, 0, 0.5),
+                        0 0 20px rgba(255, 215, 0, 0.3),
+                        0 0 30px rgba(255, 215, 0, 0.1);
+                    background: linear-gradient(45deg, #fff, #ffd700);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    position: relative;
+                ">
+                    CSBT E-Sports Tournament
+                </h1>
+
+                <!-- Animated Line -->
+                <div style="
+                    width: 100px;
+                    height: 4px;
+                    background: linear-gradient(90deg, transparent, #ffd700, transparent);
+                    margin: 20px auto;
+                    animation: glow 2s infinite;
+                "></div>
+
+                <!-- Subtitle -->
+                <p style="
+                    font-size: 1.8em;
+                    margin-bottom: 40px;
+                    color: #fff;
+                    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+                    font-weight: 300;
+                    letter-spacing: 1px;
+                ">Experience the Ultimate BGMI Battle</p>
+
+                <!-- BGMI Image -->
+                <div style="margin: 30px auto; max-width: 300px;">
+                    <img src="BGMI.jpg" alt="BGMI" style="
+                        width: 100%;
+                        border-radius: 20px;
+                        box-shadow: 
+                            0 0 30px rgba(255, 215, 0, 0.3),
+                            0 0 60px rgba(255, 215, 0, 0.1);
+                        border: 3px solid #ffd700;
+                        padding: 5px;
+                        background: rgba(0, 0, 0, 0.3);
+                        transition: transform 0.3s ease, box-shadow 0.3s ease;
+                    ">
+                    <div style="
+                        margin-top: 25px;
+                        padding: 10px;
+                        background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+                    ">
+                        <p style="
+                            font-size: 2.2em;
+                            color: #ffd700;
+                            text-transform: uppercase;
+                            letter-spacing: 5px;
+                            font-weight: bold;
+                            text-shadow: 
+                                0 0 10px rgba(255, 215, 0, 0.5),
+                                0 0 20px rgba(255, 215, 0, 0.3);
+                            margin: 0;
+                            animation: glow 2s infinite;
+                        ">Announced</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- टूर्नामेंट इन्फो -->
+    <section id="tournament" class="tournament-info">
+        <div class="info-container">
+            <h2 style="text-align: center; color: #ffd700; font-size: 2.5em;">Tournament Highlights</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <i class="fas fa-trophy"></i>
+                    <h3>Grand Prize Pool</h3>
+                    <p>Compete for exciting cash prizes and rewards</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-users"></i>
+                    <h3>Squad Battles</h3>
+                    <p>Form your team and compete against the best</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-gamepad"></i>
+                    <h3>Live Streaming</h3>
+                    <p>Watch matches live on our official channel</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-star"></i>
+                    <h3>Professional Setup</h3>
+                    <p>Experience tournament-grade organization</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- टूर्नामेंट इन्फो के बाद नया सेक्शन -->
+    <section class="tournament-details" style="padding: 80px 20px; background: #000;">
+        <div class="info-container">
+            <h2 style="text-align: center; color: #ffd700; font-size: 2.5em; margin-bottom: 50px;">Tournament Details</h2>
+            <div class="details-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+                
+                <!-- BGMI Box -->
+                <div class="detail-box" style="background: rgba(255, 255, 255, 0.05); padding: 30px; border-radius: 15px; text-align: center;">
+                    <img src="Image BGMI.jpg" alt="BGMI" style="width: 100%; max-width: 300px; border-radius: 10px; margin-bottom: 20px;">
+                    <h3 style="color: #ffd700; margin-bottom: 15px;">Battlegrounds Mobile India (BGMI)</h3>
+                    <div style="text-align: left; margin-left: 20px;">
+                        <p>🗺️ Map: Erangle</p>
+                        <p>👥 Squad: 4 players</p>
+                        <p>💰 Entry: ₹199 per team</p>
+                    </div>
+                </div>
+
+                <!-- Join Tournament Box -->
+                <div class="detail-box" style="background: rgba(255, 255, 255, 0.05); padding: 30px; border-radius: 15px; text-align: center;">
+                    <h3 style="color: #ffd700; margin-bottom: 25px;">Join Tournament</h3>
+                    <p style="margin-bottom: 20px;">Ready to compete? Register your team now!</p>
+                    <div style="text-align: left; margin-left: 20px; margin-bottom: 30px;">
+                        <p>✅ Professional Tournament Structure</p>
+                        <p>🎥 Live Streaming of All Matches</p>
+                        <p>🎙️ Expert Commentary</p>
+                        <p>🛡️ Anti-Cheat Protection</p>
+                    </div>
+                    <a href="./Registration.html" class="register-btn" style="margin-top: 20px;">Register Now</a>
+                </div>
+
+                <!-- Prize Pool Box -->
+                <div class="detail-box" style="background: rgba(255, 255, 255, 0.05); padding: 30px; border-radius: 15px; text-align: center;">
+                    <h3 style="color: #fff; font-size: 28px; margin-bottom: 25px;">Prize Pool Distribution</h3>
+                    <p style="font-size: 32px; color: #ffd700; margin-bottom: 40px; font-weight: bold;">Total: ₹1,00,000</p>
+                    
+                    <div style="background: rgba(20, 20, 40, 0.5); padding: 25px; border-radius: 15px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                            <span style="color: #fff; font-size: 20px;">🥇 1st Place</span>
+                            <span style="color: #ffd700; font-size: 24px; font-weight: bold;">₹50,000</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                            <span style="color: #fff; font-size: 20px;">🥈 2nd Place</span>
+                            <span style="color: #ffd700; font-size: 24px; font-weight: bold;">₹25,000</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                            <span style="color: #fff; font-size: 20px;">🥉 3rd Place</span>
+                            <span style="color: #ffd700; font-size: 24px; font-weight: bold;">₹15,000</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                            <span style="color: #fff; font-size: 20px;">4th Place</span>
+                            <span style="color: #ffd700; font-size: 24px; font-weight: bold;">₹6,000</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="color: #fff; font-size: 20px;">5th Place</span>
+                            <span style="color: #ffd700; font-size: 24px; font-weight: bold;">₹4,000</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHY JOIN CSBT E-SPORTS? सेक्शन -->
+    <section class="why-join" style="padding: 80px 20px; background: linear-gradient(to bottom, #000, #111);">
+        <div class="info-container">
+            <h2 style="text-align: center; color: #ffd700; font-size: 2.5em; margin-bottom: 50px;">WHY JOIN CSBT E-SPORTS?</h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+                <!-- Professional Tournaments -->
+                <div style="background: rgba(255, 255, 255, 0.05); padding: 30px; border-radius: 15px; transition: transform 0.3s ease;">
+                    <div style="font-size: 40px; margin-bottom: 20px; text-align: center;">🏆</div>
+                    <h3 style="color: #ffd700; margin-bottom: 15px; font-size: 22px; text-align: center;">Professional Tournaments</h3>
+                    <p style="color: #fff; line-height: 1.6;">Compete in well-organized tournaments with professional management and fair play environment.</p>
+                </div>
+
+                <!-- Prize Pool -->
+                <div style="background: rgba(255, 255, 255, 0.05); padding: 30px; border-radius: 15px; transition: transform 0.3s ease;">
+                    <div style="font-size: 40px; margin-bottom: 20px; text-align: center;">💰</div>
+                    <h3 style="color: #ffd700; margin-bottom: 15px; font-size: 22px; text-align: center;">Prize Pool</h3>
+                    <p style="color: #fff; line-height: 1.6;">Attractive prize pools and rewards for winners. Every tournament offers exciting cash prizes.</p>
+                </div>
+
+                <!-- Gaming Community -->
+                <div style="background: rgba(255, 255, 255, 0.05); padding: 30px; border-radius: 15px; transition: transform 0.3s ease;">
+                    <div style="font-size: 40px; margin-bottom: 20px; text-align: center;">🎮</div>
+                    <h3 style="color: #ffd700; margin-bottom: 15px; font-size: 22px; text-align: center;">Gaming Community</h3>
+                    <p style="color: #fff; line-height: 1.6;">Join a thriving community of passionate gamers. Connect, learn, and grow together.</p>
+                </div>
+
+                <!-- Live Streaming -->
+                <div style="background: rgba(255, 255, 255, 0.05); padding: 30px; border-radius: 15px; transition: transform 0.3s ease;">
+                    <div style="font-size: 40px; margin-bottom: 20px; text-align: center;">
+                        <i class="fab fa-youtube" style="color: #ff0000;"></i>
+                    </div>
+                    <h3 style="color: #ffd700; margin-bottom: 15px; font-size: 22px; text-align: center;">Live Streaming</h3>
+                    <p style="color: #fff; line-height: 1.6;">All matches are professionally streamed with expert commentary and analysis on our youtube channel</p>
+                </div>
+
+                <!-- Fair Competition -->
+                <div style="background: rgba(255, 255, 255, 0.05); padding: 30px; border-radius: 15px; transition: transform 0.3s ease;">
+                    <div style="font-size: 40px; margin-bottom: 20px; text-align: center;">🎯</div>
+                    <h3 style="color: #ffd700; margin-bottom: 15px; font-size: 22px; text-align: center;">Fair Competition</h3>
+                    <p style="color: #fff; line-height: 1.6;">Strict anti-cheat measures and professional moderation ensure fair gameplay.</p>
+                </div>
+
+                <!-- Growth Opportunities -->
+                <div style="background: rgba(255, 255, 255, 0.05); padding: 30px; border-radius: 15px; transition: transform 0.3s ease;">
+                    <div style="font-size: 40px; margin-bottom: 20px; text-align: center;">🌟</div>
+                    <h3 style="color: #ffd700; margin-bottom: 15px; font-size: 22px; text-align: center;">Growth Opportunities</h3>
+                    <p style="color: #fff; line-height: 1.6;">Platform to showcase your skills and get noticed by professional esports teams.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- फुटर -->
+    <footer id="footer" style="padding: 60px 20px; background: #1f1633;">
+        <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px;">
+            <!-- CSBT E-Sports Section -->
+            <div>
+                <h3 style="color: #fff; font-size: 24px; margin-bottom: 20px;">
+                    <span style="color: #ffd700;">⚡</span> CSBT E-Sports
+                </h3>
+                <p style="color: #999; line-height: 1.6;">Join the ultimate gaming community and compete in professional BGMI tournaments.</p>
+                <div style="margin-top: 20px;">
+                    <a href="#" style="color: #999; margin-right: 20px; font-size: 24px; transition: color 0.3s;"><i class="fab fa-telegram"></i></a>
+                    <a href="#" style="color: #999; margin-right: 20px; font-size: 24px; transition: color 0.3s;"><i class="fab fa-youtube"></i></a>
+                    <a href="#" style="color: #999; font-size: 24px; transition: color 0.3s;"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div>
+                <h3 style="color: #ffd700; font-size: 20px; margin-bottom: 20px;">Quick Links</h3>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="margin-bottom: 12px;"><a href="#home" style="color: #999; text-decoration: none; transition: color 0.3s;">Home</a></li>
+                    <li style="margin-bottom: 12px;"><a href="leaderboard.html" style="color: #999; text-decoration: none; transition: color 0.3s;">Leaderboard</a></li>
+                    <li style="margin-bottom: 12px;"><a href="about.html" style="color: #999; text-decoration: none; transition: color 0.3s;">About Us</a></li>
+                    <li style="margin-bottom: 12px;"><a href="registration.html" style="color: #999; text-decoration: none; transition: color 0.3s;">Register</a></li>
+                    <li style="margin-bottom: 12px;"><a href="blog.html" style="color: #999; text-decoration: none; transition: color 0.3s;">Blog</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact Us -->
+            <div>
+                <h3 style="color: #ffd700; font-size: 20px; margin-bottom: 20px;">Contact Us</h3>
+                <p style="color: #999; margin-bottom: 15px;">
+                    <i class="far fa-envelope" style="margin-right: 10px;"></i>
+                    csbtesports@gmail.com
+                </p>
+                <p style="color: #999;">
+                    <i class="fab fa-telegram" style="margin-right: 10px;"></i>
+                    Join our Telegram
+                </p>
+            </div>
+
+            <!-- Stay Updated -->
+            <div>
+                <h3 style="color: #ffd700; font-size: 20px; margin-bottom: 20px;">Stay Updated</h3>
+                <p style="color: #999; margin-bottom: 20px;">Subscribe to our newsletter for tournament updates.</p>
+                <div style="display: flex; gap: 10px;">
+                    <input type="email" placeholder="Enter your email" style="padding: 10px; border-radius: 5px; border: none; background: rgba(255, 255, 255, 0.1); color: #fff; flex: 1;">
+                    <button style="padding: 10px 20px; border-radius: 5px; border: none; background: #8257e6; color: #fff; cursor: pointer;">Subscribe</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Footer -->
+        <div style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+            <p style="color: #999; margin-bottom: 10px;">&copy; 2024 CSBT E-Sports. All rights reserved.</p>
+            <div>
+                <a href="#privacy" style="color: #999; text-decoration: none; margin-right: 20px;">Privacy Policy</a>
+                <a href="#terms" style="color: #999; text-decoration: none;">Terms & Conditions</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // पेज लोड होने पर टॉप पर स्क्रॉल करें
+        window.onload = function() {
+            window.scrollTo(0, 0);
+        }
+
+        // मोबाइल मेनू टॉगल
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // नेविगेशन बार स्क्रॉल इफेक्ट
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(0, 0, 0, 0.9)';
+                navbar.style.padding = '15px 0';
+            } else {
+                navbar.style.background = 'rgba(0, 0, 0, 0.8)';
+                navbar.style.padding = '20px 0';
+            }
+        });
+
+        // मेनू लिंक क्लिक पर मोबाइल मेनू बंद करें
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    navLinks.classList.remove('active');
+                }
+            });
+        });
+
+        function scrollToFooter(event) {
+            event.preventDefault();
+            const footer = document.getElementById('footer');
+            footer.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html> 
